@@ -51,7 +51,8 @@ variant gui description {Add gui 'shredder'} {
                     port:librsvg \
                     port:xorg-server \
                     port:adwaita-icon-theme \
-                    port:gsettings-desktop-schemas
+                    port:gsettings-desktop-schemas \
+                    port:gtksourceview3
 
     build.post_args-delete --without-gui
     build.post_args-append PYTHON=python3.9
