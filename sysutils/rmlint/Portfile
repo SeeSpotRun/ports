@@ -19,6 +19,8 @@ checksums           sha256  3943b657a1a49c12ef073f55aca8b128d13a63f2913c91278cbb
 
 use_configure       no
 
+configure.python    ${prefix}/bin/python3.9
+
 depends_build       port:gettext \
                     port:pkgconfig \
                     port:scons \
