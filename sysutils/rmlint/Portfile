@@ -1,0 +1,58 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        SeeSpotRun rmlint a69d6009f1e1a884126816a68de80432a252d7e2
+version             20210519
+
+platforms           darwin
+categories          sysutils
+license             GPL-3
+maintainers         SeeSpotRun
+description         remove dupes and other lint from your filesystem
+long_description    ${name} is a powerful duplicate file and other lint finder
+
+checksums           sha256  b56dce9136388e11d9440ae3c218c30174489d51e048d803f7d63c08b01e3b22 \
+                    size    2498072 \
+                    rmd160  68836fc2eb813169531d34d0906ff0d5a00d9b0a
+
+use_configure       no
+
+depends_build       port:gettext \
+                    port:pkgconfig \
+                    port:scons \
+                    port:py-sphinx \
+                    port:glib2 \
+                    port:json-glib \
+                    port:libelf \
+
+build.cmd           scons
+build.target
+build.post_args     VERBOSE=1 \
+                    --without-gui
+
+destroot.cmd        scons
+destroot.post_args  VERBOSE=1 \
+                    --prefix=${destroot}${prefix} \
+                    --without-gui
+
+destroot.destdir    prefix=${destroot}${prefix}
+destroot.target     install
+
+variant gui description {Add gui 'shredder'} {
+    # work-in-progress gui variant...
+    # currently doesn't build due to permission errors:
+    depends_build-append \
+                    port:gtk3 \
+                    port:py-gobject3 \
+                    port:librsvg \
+                    port:xorg-server \
+                    port:adwaita-icon-theme \
+                    port:gsettings-desktop-schemas
+
+    build.post_args-delete --without-gui
+    build.post_args-append PYTHON=python3.9
+    destroot.post_args-delete --without-gui
+    destroot.post_args-append PYTHON=python3.9
+}
