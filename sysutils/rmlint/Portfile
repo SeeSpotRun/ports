@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        SeeSpotRun rmlint a69d6009f1e1a884126816a68de80432a252d7e2
+github.setup        SeeSpotRun rmlint ac6efded314bfb31ad2cd42adffc8cef0de2dfac
 version             20210519
 
 platforms           darwin
@@ -13,9 +13,9 @@ maintainers         SeeSpotRun
 description         remove dupes and other lint from your filesystem
 long_description    ${name} is a powerful duplicate file and other lint finder
 
-checksums           sha256  b56dce9136388e11d9440ae3c218c30174489d51e048d803f7d63c08b01e3b22 \
-                    size    2498072 \
-                    rmd160  68836fc2eb813169531d34d0906ff0d5a00d9b0a
+checksums           sha256  3943b657a1a49c12ef073f55aca8b128d13a63f2913c91278cbb29a31aaf5c93 \
+                    size    2496464 \
+                    rmd160  f1cfa4eef603a5ae65a085897fd715f751747b02
 
 use_configure       no
 
