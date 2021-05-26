@@ -3,8 +3,8 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        SeeSpotRun rmlint ac6efded314bfb31ad2cd42adffc8cef0de2dfac
-version             20210519
+github.setup        SeeSpotRun rmlint a5fe1c1a5708a22cce80f1f9aea3c77c7e5f2eb5
+version             20210526
 
 platforms           darwin
 categories          sysutils
@@ -13,9 +13,9 @@ maintainers         SeeSpotRun
 description         remove dupes and other lint from your filesystem
 long_description    ${name} is a powerful duplicate file and other lint finder
 
-checksums           sha256  3943b657a1a49c12ef073f55aca8b128d13a63f2913c91278cbb29a31aaf5c93 \
-                    size    2496464 \
-                    rmd160  f1cfa4eef603a5ae65a085897fd715f751747b02
+checksums           rmd160  88a3d2b4194b77789eaf6ad181459a78617f1045 \
+                    sha256  198959c78ebbb0e5cb78708caf81cb83294dca97f8efd840776f3eb75d356780 \
+                    size    2496847
 
 use_configure       no
 
@@ -58,4 +58,10 @@ variant gui description {Add gui 'shredder'} {
     build.post_args-append PYTHON=python3.9
     destroot.post_args-delete --without-gui
     destroot.post_args-append PYTHON=python3.9
+
+    notes "
+The rmlint gui can be started via 'rmlint --gui' or 'shredder'.
+You may need to set your PYTHONPATH environment variable first via:
+export PYTHONPATH=\"/opt/local/lib/python3.9/site-packages:\$PYTHONPATH\"
+"
 }
