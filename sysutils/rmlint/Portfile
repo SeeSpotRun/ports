@@ -3,8 +3,11 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        SeeSpotRun rmlint a5fe1c1a5708a22cce80f1f9aea3c77c7e5f2eb5
-version             20210526
+github.setup        SeeSpotRun rmlint 855beb70ccc32869186d2c911e92db30268b83e1
+version             20210527
+checksums           rmd160  4bcecf3eaf208b3788545fa6cc68cbd97253dc1b \
+                    sha256  b944425e0e11219cf2cf42780cde51ccc8f756a394e9ec8b914d5b2cfc003ae3 \
+                    size    2497113
 
 platforms           darwin
 categories          sysutils
@@ -12,10 +15,6 @@ license             GPL-3
 maintainers         SeeSpotRun
 description         remove dupes and other lint from your filesystem
 long_description    ${name} is a powerful duplicate file and other lint finder
-
-checksums           rmd160  88a3d2b4194b77789eaf6ad181459a78617f1045 \
-                    sha256  198959c78ebbb0e5cb78708caf81cb83294dca97f8efd840776f3eb75d356780 \
-                    size    2496847
 
 use_configure       no
 
@@ -43,8 +42,7 @@ destroot.destdir    prefix=${destroot}${prefix}
 destroot.target     install
 
 variant gui description {Add gui 'shredder'} {
-    # work-in-progress gui variant...
-    # currently doesn't build due to permission errors:
+
     depends_build-append \
                     port:gtk3 \
                     port:py-gobject3 \
@@ -55,9 +53,19 @@ variant gui description {Add gui 'shredder'} {
                     port:gtksourceview3
 
     build.post_args-delete --without-gui
-    build.post_args-append PYTHON=python3.9
+    build.post_args-append \
+                    PYTHON=python3.9 \
+                    --without-schemas-compile
+
     destroot.post_args-delete --without-gui
-    destroot.post_args-append PYTHON=python3.9
+    destroot.post_args-append \
+                    PYTHON=python3.9 \
+                    --without-schemas-compile
+
+    post-activate {
+         system "${prefix}/bin/glib-compile-schemas \
+             ${prefix}/share/glib-2.0/schemas"
+    }
 
     notes "
 The rmlint gui can be started via 'rmlint --gui' or 'shredder'.
